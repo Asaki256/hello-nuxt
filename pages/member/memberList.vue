@@ -2,6 +2,7 @@
 import type OneMember from "~/components/OneMember.vue";
 
 import type { Member } from "@/interfaces";
+import type { NuxtLink } from "#build/components";
 
 // ステートから会員リストを取得
 const memberList = useState<Map<number, Member>>("memberList");
@@ -11,7 +12,7 @@ const memberList = useState<Map<number, Member>>("memberList");
   <h1>会員管理</h1>
   <nav id="breadcrumbs">
     <ul>
-      <li>TOP</li>
+      <li><NuxtLink :to="{ name: 'index' }">TOP</NuxtLink></li>
       <li>会員リスト</li>
     </ul>
   </nav>
@@ -20,7 +21,11 @@ const memberList = useState<Map<number, Member>>("memberList");
     <p>新規登録はこちら</p>
     <section>
       <ul>
-        <li v-for="[id, member] in memberList" :key="id">idが{{ id }}の{{ member.name }}さん</li>
+        <li v-for="[id, member] in memberList" :key="id">
+          <NuxtLink :to="{ name: 'member-memberDetail-id', params: { id: id } }">
+            IDが{{ id }}の{{ member.name }}さん
+          </NuxtLink>
+        </li>
       </ul>
     </section>
   </section>
