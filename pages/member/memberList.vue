@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type OneMember from "~/components/OneMember.vue";
-
 import type { Member } from "@/interfaces";
 import type { NuxtLink } from "#build/components";
 
@@ -18,7 +16,7 @@ const memberList = useState<Map<number, Member>>("memberList");
   </nav>
   <section>
     <h2>会員リスト</h2>
-    <p>新規登録はこちら</p>
+    <p>新規登録は<NuxtLink :to="{ name: 'member-memberAdd' }">こちら</NuxtLink></p>
     <section>
       <ul>
         <li v-for="[id, member] in memberList" :key="id">
