@@ -23,8 +23,9 @@ useState<Map<number, Member>>("memberList", (): Map<number, Member> => {
 <template>
   <header>
     <h1>ヘッダーサンプル</h1>
+    <h2>ネストされたルーティングもするよ</h2>
   </header>
-  <TheBaseSection />
+  <!-- <TheBaseSection /> -->
   <main>
     <NuxtPage />
   </main>
