@@ -21,13 +21,15 @@ useState<Map<number, Member>>("memberList", (): Map<number, Member> => {
 </script>
 
 <template>
-  <header>
+  <!-- <header>
     <h1>ヘッダーサンプル</h1>
-  </header>
-  <TheBaseSection />
-  <main>
+  </header> -->
+  <!-- <TheBaseSection /> -->
+  <!-- <main> -->
+  <NuxtLayout>
     <NuxtPage />
-  </main>
+  </NuxtLayout>
+  <!-- </main> -->
 </template>
 
 <style>
