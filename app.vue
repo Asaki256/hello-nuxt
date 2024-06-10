@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// 天気APIのAPIキーへのURL
+// https://home.openweathermap.org/api_keys
+// APIKey: 6abde7b29586ba11ec133c6cf457c334
+
 // import { Title } from "#build/components";
 import type { Member } from "@/interfaces";
 
