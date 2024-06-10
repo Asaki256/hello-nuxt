@@ -1,5 +1,17 @@
 <script setup lang="ts">
+// import { Title } from "#build/components";
 import type { Member } from "@/interfaces";
+
+const SITE_TITLE = "ヘッダ変更サンプルTOP";
+useHead({
+  titleTemplate: (titleChunk: string | undefined): string => {
+    let title = SITE_TITLE;
+    if (titleChunk != undefined) {
+      title = `${titleChunk} | ${SITE_TITLE}`;
+    }
+    return title;
+  },
+});
 
 useState<Map<number, Member>>("memberList", (): Map<number, Member> => {
   const memberListInit = new Map<number, Member>();
@@ -21,15 +33,9 @@ useState<Map<number, Member>>("memberList", (): Map<number, Member> => {
 </script>
 
 <template>
-  <!-- <header>
-    <h1>ヘッダーサンプル</h1>
-  </header> -->
-  <!-- <TheBaseSection /> -->
-  <!-- <main> -->
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
-  <!-- </main> -->
 </template>
 
 <style>

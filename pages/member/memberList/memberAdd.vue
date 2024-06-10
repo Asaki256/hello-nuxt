@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import type { Member } from "@/interfaces";
 
+const PAGE_TITLE = "会員情報を追加するお";
+definePageMeta({
+  layout: "member",
+});
+useHead({
+  title: PAGE_TITLE,
+});
 // ルータオブジェクト
 const router = useRouter();
 // 会員情報リスト
@@ -22,7 +29,7 @@ const onAdd = (): void => {
 
 <template>
   <section>
-    <h2>会員情報追加</h2>
+    <h2>{{ PAGE_TITLE }}</h2>
     <p>情報を入力し、登録ボタンをクリック！</p>
     <form @submit.prevent="onAdd">
       <dl>
