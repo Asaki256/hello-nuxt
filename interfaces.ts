@@ -5,3 +5,9 @@ export interface Member {
   points: number;
   note?: string;
 }
+export interface City {
+  id: number;
+  name: string;
+  q: string;
+}
+
