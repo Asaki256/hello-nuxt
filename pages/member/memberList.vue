@@ -1,21 +1,28 @@
 <script setup lang="ts">
 import type { Member } from "@/interfaces";
-import type { NuxtLink } from "#build/components";
+// import type { NuxtLink } from "#build/components";
+const PAGE_TITLE = "会員リスト！";
+definePageMeta({
+  layout: "member",
+  // layout: false,
+});
+useHead({
+  title: PAGE_TITLE,
+});
 
 // ステートから会員リストを取得
 const memberList = useState<Map<number, Member>>("memberList");
 </script>
 
 <template>
-  <h1>会員管理</h1>
   <nav id="breadcrumbs">
     <ul>
       <li><NuxtLink :to="{ name: 'index' }">TOP</NuxtLink></li>
-      <li>会員リスト</li>
+      <li>{{ PAGE_TITLE }}</li>
     </ul>
   </nav>
   <section>
-    <h2>会員リスト</h2>
+    <h2>{{ PAGE_TITLE }}</h2>
     <p>新規登録は<NuxtLink :to="{ name: 'member-memberList-memberAdd' }">こちら</NuxtLink></p>
     <section>
       <ul>

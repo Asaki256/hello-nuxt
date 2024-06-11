@@ -6,7 +6,6 @@
 // 姫路の情報
 // https://api.openweathermap.org/data/2.5/weather?lang=ja&q=Himeji&appid=6abde7b29586ba11ec133c6cf457c334
 
-// import { Title } from "#build/components";
 import type { Member } from "@/interfaces";
 import type { City } from "@/interfaces";
 
@@ -28,6 +27,17 @@ useState<Map<number, City>>("cityList", (): Map<number, City> => {
     q: "Himeji",
   });
   return cityListInit;
+});
+
+const SITE_TITLE = "ヘッダ変更サンプルTOP";
+useHead({
+  titleTemplate: (titleChunk: string | undefined): string => {
+    let title = SITE_TITLE;
+    if (titleChunk != undefined) {
+      title = `${titleChunk} | ${SITE_TITLE}`;
+    }
+    return title;
+  },
 });
 
 const SITE_TITLE = "ヘッダ変更サンプルTOP";
@@ -65,7 +75,9 @@ useState<Map<number, Member>>("memberList", (): Map<number, Member> => {
     <h1>fetch</h1>
   </header>
   <main>
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </main>
 </template>
 

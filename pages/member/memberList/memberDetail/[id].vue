@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import type { Member } from "@/interfaces";
 
+const PAGE_TITLE = "会員詳細情報〜(^^)";
+
+definePageMeta({
+  layout: "member",
+});
+
+useHead({
+  title: PAGE_TITLE,
+});
+
 // ルートオブジェクト取得
 const route = useRoute();
 // 会員情報リストをステートから取得
@@ -22,7 +32,7 @@ const localNote = computed((): string => {
 
 <template>
   <section>
-    <h2>会員詳細情報</h2>
+    <h2>{{ PAGE_TITLE }}</h2>
     <dl>
       <dt>ID</dt>
       <dd>{{ member.id }}</dd>
