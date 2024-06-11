@@ -1,5 +1,45 @@
 <script setup lang="ts">
+// 天気APIのAPIキーへのURL
+// https://home.openweathermap.org/api_keys
+// APIKey: 6abde7b29586ba11ec133c6cf457c334
+
+// 姫路の情報
+// https://api.openweathermap.org/data/2.5/weather?lang=ja&q=Himeji&appid=6abde7b29586ba11ec133c6cf457c334
+
+// import { Title } from "#build/components";
 import type { Member } from "@/interfaces";
+import type { City } from "@/interfaces";
+
+useState<Map<number, City>>("cityList", (): Map<number, City> => {
+  const cityListInit = new Map<number, City>();
+  cityListInit.set(1853909, {
+    id: 1853909,
+    name: "大阪",
+    q: "Osaka",
+  });
+  cityListInit.set(1859171, {
+    id: 1859171,
+    name: "神戸",
+    q: "Kobe",
+  });
+  cityListInit.set(1862627, {
+    id: 1862627,
+    name: "姫路",
+    q: "Himeji",
+  });
+  return cityListInit;
+});
+
+const SITE_TITLE = "ヘッダ変更サンプルTOP";
+useHead({
+  titleTemplate: (titleChunk: string | undefined): string => {
+    let title = SITE_TITLE;
+    if (titleChunk != undefined) {
+      title = `${titleChunk} | ${SITE_TITLE}`;
+    }
+    return title;
+  },
+});
 
 useState<Map<number, Member>>("memberList", (): Map<number, Member> => {
   const memberListInit = new Map<number, Member>();
@@ -22,10 +62,8 @@ useState<Map<number, Member>>("memberList", (): Map<number, Member> => {
 
 <template>
   <header>
-    <h1>ヘッダーサンプル</h1>
-    <h2>ネストされたルーティングもするよ</h2>
+    <h1>fetch</h1>
   </header>
-  <!-- <TheBaseSection /> -->
   <main>
     <NuxtPage />
   </main>
