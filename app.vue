@@ -40,17 +40,6 @@ useHead({
   },
 });
 
-const SITE_TITLE = "ヘッダ変更サンプルTOP";
-useHead({
-  titleTemplate: (titleChunk: string | undefined): string => {
-    let title = SITE_TITLE;
-    if (titleChunk != undefined) {
-      title = `${titleChunk} | ${SITE_TITLE}`;
-    }
-    return title;
-  },
-});
-
 useState<Map<number, Member>>("memberList", (): Map<number, Member> => {
   const memberListInit = new Map<number, Member>();
   memberListInit.set(12345, {
