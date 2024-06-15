@@ -11,3 +11,7 @@ export interface City {
   q: string;
 }
 
+export interface WeatherInfoData {
+  cityName: string;
+  description: string;
+}
