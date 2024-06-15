@@ -12,6 +12,7 @@ const selectedCity = computed((): City => {
 
 // const weatherDescription = ref("");
 
+// $fetchを用いた長い書き方
 // const weatherInfoUrl = "https://api.openweathermap.org/data/2.5/weather";
 // const params: {
 //   lang: string;
@@ -29,7 +30,10 @@ const selectedCity = computed((): City => {
 // const weather = weatherArray[0];
 // weatherDescription.value = weather.description;
 
-const asyncData = await useAsyncData(
+// useLazyAsyncData()は、レンダリングの後に非同期処理を行うため、
+// 画面遷移後に時間差で表示される動作をする。
+// そのため、処理が完了するまで待機するawaitキーワードは不要であるため削除。
+const asyncData = useLazyAsyncData(
   `/WeatherInfo/${route.params.id}`,
   (): Promise<any> => {
     const weatherInfoUrl = "https://api.openweathermap.org/data/2.5/weather";
@@ -56,15 +60,44 @@ const asyncData = await useAsyncData(
     },
   }
 );
+
+// useFetchを利用した場合の例
+// パラメータ（APIに渡すデータ)がある場合は、useFetchメソッドの外側に書く必要があるため、相性が悪い
+// ない場合は簡潔に書けるため、臨機応変に使い分ける
+// const params: {
+//   lang: string;
+//   q: string;
+//   appId: string;
+// } = {
+//   lang: "ja",
+//   q: selectedCity.value.q,
+//   appId: "6abde7b29586ba11ec133c6cf457c334",
+// };
+// const asyncData = await useFetch("https://api.openweathermap.org/data/2.5/weather", {
+//   key: `/WeatherInfo/${route.params.id}`,
+//   query: params,
+//   transform: (data: any): string => {
+//     const weatherArray = data.weather;
+//     const weather = weatherArray[0];
+//     return weather.description;
+//   },
+// });
+
 // const data = asyncData.data;
 // const weatherArray = data.value.weather;
 // const weather = weatherArray[0];
 // weatherDescription.value = weather.description;
 const weatherDescription = asyncData.data;
+// asyncDataのpendingプロパティ
+// boolean型で、
+// 対象のasyncDataが取得中の場合： True
+// 対象のasyncDataが取得済みの場合： False
+const pending = asyncData.pending;
 </script>
 
 <template>
-  <section>
+  <p v-if="pending">データ取得中...a(^o ^)A@@@@...</p>
+  <section v-else>
     <h2>{{ selectedCity.name }}の天気</h2>
     <p>{{ weatherDescription }}</p>
   </section>
