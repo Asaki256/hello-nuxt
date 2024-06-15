@@ -29,7 +29,7 @@ useState<Map<number, City>>("cityList", (): Map<number, City> => {
   return cityListInit;
 });
 
-const SITE_TITLE = "useLazyAsyncData()サンプル";
+const SITE_TITLE = "refreshオプションとwatchオプションサンプル";
 useHead({
   titleTemplate: (titleChunk: string | undefined): string => {
     let title = SITE_TITLE;
