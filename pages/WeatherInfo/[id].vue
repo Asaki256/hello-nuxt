@@ -1,52 +1,57 @@
 <script setup lang="ts">
 import type { City, WeatherInfoData } from "@/interfaces";
 
-// const route = useRoute();
+const route = useRoute();
 
-// const cityList = useState<Map<number, City>>("cityList");
+const cityList = useState<Map<number, City>>("cityList");
 
-// const selectedCity = computed((): City => {
-//   const idNo = Number(route.params.id);
-//   return cityList.value.get(idNo) as City;
-// });
+const selectedCity = computed((): City => {
+  const idNo = Number(route.params.id);
+  return cityList.value.get(idNo) as City;
+});
 
 // 都市情報リストをステートから取得
-const cityList = useState<Map<number, City>>("cityList");
+// const cityList = useState<Map<number, City>>("cityList");
 // 初期都市IDを大阪に設定
-const selectedCityId = ref(1853909);
+// const selectedCityId = ref(1853909);
 
-const asyncData = await useAsyncData(
-  (): Promise<any> => {
-    const selectedCity = cityList.value.get(selectedCityId.value) as City;
-    const weatherInfoUrl = "https://api.openweathermap.org/data/2.5/weather";
-    const params: {
-      lang: string;
-      q: string;
-      appid: string;
-    } = {
-      lang: "ja",
-      q: selectedCity.q,
-      appid: "6abde7b29586ba11ec133c6cf457c334",
-    };
-    const queryParams = new URLSearchParams(params);
-    const urlFull = `${weatherInfoUrl}?${queryParams}`;
-    const response = $fetch(urlFull);
-    return response;
-  },
-  {
-    transform: (data: any): WeatherInfoData => {
-      const weatherArray = data.weather;
-      const weather = weatherArray[0];
-      return {
-        cityName: `${data.name}の天気`,
-        description: weather.description,
-      };
-    },
-    watch: [selectedCityId],
-  }
-);
+const asyncData = useWeatherInfoFetcher(selectedCity.value);
 const pending = asyncData.pending;
-const data = asyncData.data;
+// const data = asyncData.data;
+const weatherDescription = asyncData.data;
+
+// const asyncData = await useAsyncData(
+//   (): Promise<any> => {
+//     const selectedCity = cityList.value.get(selectedCityId.value) as City;
+//     const weatherInfoUrl = "https://api.openweathermap.org/data/2.5/weather";
+//     const params: {
+//       lang: string;
+//       q: string;
+//       appid: string;
+//     } = {
+//       lang: "ja",
+//       q: selectedCity.q,
+//       appid: "6abde7b29586ba11ec133c6cf457c334",
+//     };
+//     const queryParams = new URLSearchParams(params);
+//     const urlFull = `${weatherInfoUrl}?${queryParams}`;
+//     const response = $fetch(urlFull);
+//     return response;
+//   },
+//   {
+//     transform: (data: any): WeatherInfoData => {
+//       const weatherArray = data.weather;
+//       const weather = weatherArray[0];
+//       return {
+//         cityName: `${data.name}の天気`,
+//         description: weather.description,
+//       };
+//     },
+//     watch: [selectedCityId],
+//   }
+// );
+// const pending = asyncData.pending;
+// const data = asyncData.data;
 
 // // 初期都市情報を取得
 // const selectedCityInit = cityList.value.get(selectedCityId.value) as City;
@@ -185,16 +190,16 @@ const data = asyncData.data;
   <section>
     <label>
       天気を表示したい地点：
-      <select v-model="selectedCityId">
-        <option v-for="[id, city] in cityList" :key="id" :value="id">
-          {{ city.name }}
-        </option>
-      </select>
+      <!-- <select v-model="route.params.id">
+        <option v-for="[id, city] in cityList" :key="id" :value="id"> -->
+      {{ selectedCity.name }}
+      <!-- </option> -->
+      <!-- </select> -->
     </label>
   </section>
   <p v-if="pending">データ取得中...v('v ' )V...</p>
   <section v-else>
-    <h2>{{ data?.cityName }}</h2>
-    <p>{{ data?.description }}</p>
+    <h2>{{ selectedCity.name }}</h2>
+    <p>{{ weatherDescription }}</p>
   </section>
 </template>
