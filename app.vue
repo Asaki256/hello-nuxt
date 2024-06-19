@@ -29,7 +29,7 @@ useState<Map<number, City>>("cityList", (): Map<number, City> => {
   return cityListInit;
 });
 
-const SITE_TITLE = "コンポーザブルサンプル";
+const SITE_TITLE = "サーバサンプル";
 useHead({
   titleTemplate: (titleChunk: string | undefined): string => {
     let title = SITE_TITLE;
@@ -63,7 +63,7 @@ const asyncData = useNuxtData("/WeatherInfo/1862627");
 
 <template>
   <header>
-    <h1>fetch</h1>
+    <h1>{{ SITE_TITLE }}</h1>
     <p>{{ asyncData.data }}</p>
   </header>
   <main>
