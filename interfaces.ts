@@ -15,3 +15,8 @@ export interface WeatherInfoData {
   cityName: string;
   description: string;
 }
+
+export interface ReturnJSONMembers {
+  result: number;
+  data: Member[];
+}
