@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import type { Member } from "@/interfaces";
+import type { Member } from "@/interfaces";
 
 const PAGE_TITLE = "会員リスト！";
 definePageMeta({
@@ -12,9 +12,19 @@ useHead({
 
 // ステートから会員リストを取得
 // const memberList = useState<Map<number, Member>>("memberList");
-const asyncData = useLazyFetch("/api/getMemberList");
-const memberList = asyncData.data;
+const asyncData = useLazyFetch("/member-management/members");
+const responseData = asyncData.data;
 const pending = asyncData.pending;
+const memberList = computed((): Member[] => {
+  let returnList: Member[] = [];
+  if (responseData.value != null) {
+    returnList = responseData.value.data;
+  }
+  return returnList;
+});
+const isEmptyList = computed((): boolean => {
+  return memberList.value.length == 0;
+});
 </script>
 
 <template>
@@ -30,6 +40,7 @@ const pending = asyncData.pending;
     <p v-if="pending">データ取得中😘~~♡</p>
     <section v-else>
       <ul>
+        <li v-if="isEmptyList">会員情報は存在しません😅</li>
         <li v-for="member in memberList" :key="member.id">
           <NuxtLink :to="{ name: 'member-memberList-memberDetail-id', params: { id: member.id } }">
             IDが{{ member.id }}の{{ member.name }}さん

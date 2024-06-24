@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import type { Member } from "@/interfaces";
+import type { Member } from "@/interfaces";
 
 const PAGE_TITLE = "会員詳細情報〜(^^)";
 
@@ -13,11 +13,13 @@ useHead({
 
 // ルートオブジェクト取得
 const route = useRoute();
-const asyncData = useLazyFetch("/api/getOneMemberInfo", {
-  query: { id: route.params.id },
-});
-const member = asyncData.data;
+const asyncData = useLazyFetch(`/member-management/members/${route.params.id}`);
+const responseData = asyncData.data;
 const pending = asyncData.pending;
+const member = computed((): Member | undefined => {
+  // レスポンスデータの、undefinedでない配列の0番目
+  return responseData.value?.data[0];
+});
 
 // 会員情報リストをステートから取得
 // const memberList = useState<Map<number, Member>>("memberList");
@@ -29,7 +31,7 @@ const pending = asyncData.pending;
 
 const localNote = computed((): string => {
   let localNote = "--";
-  if (member.value != null && member.value.note != undefined) {
+  if (member.value != undefined && member.value.note != undefined) {
     localNote = member.value.note;
   }
   // if (member.value.note != undefined) {

@@ -29,7 +29,7 @@ useState<Map<number, City>>("cityList", (): Map<number, City> => {
   return cityListInit;
 });
 
-const SITE_TITLE = "サーバサンプル";
+const SITE_TITLE = "サーバストレージサンプル";
 useHead({
   titleTemplate: (titleChunk: string | undefined): string => {
     let title = SITE_TITLE;
