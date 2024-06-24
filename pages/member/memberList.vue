@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import type { Member } from "@/interfaces";
+import type { Member } from "@/interfaces";
 
 const PAGE_TITLE = "会員リスト！";
 definePageMeta({
@@ -12,9 +12,16 @@ useHead({
 
 // ステートから会員リストを取得
 // const memberList = useState<Map<number, Member>>("memberList");
-const asyncData = useLazyFetch("/api/getMemberList");
-const memberList = asyncData.data;
+const asyncData = useLazyFetch("/member-management/members");
+const responseData = asyncData.data;
 const pending = asyncData.pending;
+const memberList = computed((): Member[] => {
+  let returnList: Member[] = [];
+  if (responseData.value != null) {
+    returnList = responseData.value.data;
+  }
+  return returnList;
+});
 </script>
 
 <template>

@@ -24,7 +24,7 @@ const member: Member = reactive({
 const pending = ref(false);
 const onAdd = async (): Promise<void> => {
   pending.value = true;
-  const asyncData = await useFetch("/api/addMemberInfo", {
+  const asyncData = await useFetch("/member-management/members", {
     method: "POST",
     body: member,
   });
