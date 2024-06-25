@@ -12,6 +12,14 @@ const cityList = useState<Map<number, City>>("cityList");
       <li>TOP</li>
     </ul>
   </nav>
+  <ul>
+    <li>
+      <NuxtLink :to="{ name: 'errorHandlerBasic' }"> エラー表示実験 </NuxtLink>
+    </li>
+    <li>
+      <NuxtLink :to="{ name: 'errorHandlerNavigate' }">画面表示時のエラー実験</NuxtLink>
+    </li>
+  </ul>
   <section>
     <h2>都市リスト</h2>
     <ul>
