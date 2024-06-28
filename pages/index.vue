@@ -22,6 +22,9 @@ const cityList = useState<Map<number, City>>("cityList");
     <li>
       <NuxtLink :to="{ name: 'errorHandlerFatal' }"> 致命的なエラー発生実験 </NuxtLink>
     </li>
+    <li>
+      <NuxtLink :to="{ name: 'errorHandlerServer' }"> サーバエラー発生実験 </NuxtLink>
+    </li>
   </ul>
   <section>
     <h2>都市リスト</h2>
