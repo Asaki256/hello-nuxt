@@ -5,10 +5,11 @@ export default defineEventHandler(async(event):Promise<ReturnJSONMembers>=> {
   let memberList = new Map<number, Member>();
   let resultVal = 0;
 
-  // throw createError("擬似エラー発生")
+  // throw createError("普通のエラー");
   try {
     // ローカルストレージから会員リストを取得
     const storage = useStorage();
+    // throw createError("擬似エラー発生")
     const memberListStorage = await storage.getItem("local:member-management_members");
     // ローカルストレージから取得できた場合はMapオブジェクトに変換
     if(memberListStorage != undefined){
