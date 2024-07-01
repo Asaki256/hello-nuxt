@@ -13,9 +13,13 @@ useHead({
 
 // ルートオブジェクト取得
 const route = useRoute();
-const asyncData = useLazyFetch(`/member-management/members/${route.params.id}`);
-const responseData = asyncData.data;
-const pending = asyncData.pending;
+const {
+  data: responseData,
+  pending,
+  error,
+} = useLazyFetch(`/member-management/members/${route.params.id}`, {
+  key: `/member-management/members/${route.params.id}`,
+});
 const member = computed((): Member | undefined => {
   // レスポンスデータの、undefinedでない配列の0番目
   return responseData.value?.data[0];
@@ -39,23 +43,40 @@ const localNote = computed((): string => {
   // }
   return localNote;
 });
+const isEmptyList = computed((): boolean => {
+  return responseData.value?.data.length == 0;
+});
+const noServerError = computed((): boolean => {
+  let returnVal = false;
+  if (error.value == null && responseData.value != null && responseData.value.result == 1) {
+    returnVal = true;
+  }
+  console.log(`noServerError: ${returnVal}, asyncData: ${JSON.stringify(responseData.value)}`);
+  return returnVal;
+});
 </script>
 
 <template>
   <section>
     <h2>{{ PAGE_TITLE }}</h2>
     <p v-if="pending">データ取得中😘~♡ 😐</p>
-    <dl>
-      <dt>ID</dt>
-      <dd>{{ member?.id }}</dd>
-      <dt>名前</dt>
-      <dd>{{ member?.name }}</dd>
-      <dt>メールアドレス</dt>
-      <dd>{{ member?.email }}</dd>
-      <dt>保有ポイント</dt>
-      <dd>{{ member?.points }}</dd>
-      <dt>備考</dt>
-      <dd>{{ localNote }}</dd>
-    </dl>
+    <template v-else>
+      <template v-if="noServerError">
+        <p v-if="isEmptyList">指定された会員情報は存在しません。</p>
+        <dl v-else>
+          <dt>ID</dt>
+          <dd>{{ member?.id }}</dd>
+          <dt>名前</dt>
+          <dd>{{ member?.name }}</dd>
+          <dt>メールアドレス</dt>
+          <dd>{{ member?.email }}</dd>
+          <dt>保有ポイント</dt>
+          <dd>{{ member?.points }}</dd>
+          <dt>備考</dt>
+          <dd>{{ localNote }}</dd>
+        </dl>
+      </template>
+      <p v-else>サーバからデータ取得中に障害が発生してもーたー</p>
+    </template>
   </section>
 </template>
