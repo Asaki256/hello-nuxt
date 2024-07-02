@@ -22,6 +22,9 @@ const member: Member = reactive({
   note: "",
 });
 const pending = ref(false);
+// サーバエラーがない状態 = true
+const noServerError = ref(true);
+
 const onAdd = async (): Promise<void> => {
   pending.value = true;
   const asyncData = await useFetch("/member-management/members", {
@@ -35,8 +38,15 @@ const onAdd = async (): Promise<void> => {
   var typeAssertedNumber = /** @type {number} */ numberOrString;
   console.log(`typeAssertedNumber type: ${typeof typeAssertedNumber}`);
 
-  if (asyncData.data.value != null && asyncData.data.value.result == 1) {
+  if (
+    asyncData.error.value == null &&
+    asyncData.data.value != null &&
+    asyncData.data.value.result == 1
+  ) {
     router.push({ name: "member-memberList" });
+  } else {
+    pending.value = false;
+    noServerError.value = false;
   }
 };
 // フォームサブミット時のメソッド
@@ -51,7 +61,8 @@ const onAdd = async (): Promise<void> => {
     <h2>{{ PAGE_TITLE }}</h2>
     <p v-if="pending">データ送信中！</p>
     <template v-else>
-      <p>情報を入力し、登録ボタンをクリック！</p>
+      <p v-if="noServerError">情報を入力し、登録ボタンをクリックしろーッ！</p>
+      <p v-else>サーバ処理中に障害が発生しました！もう一回登録したら送れるかも</p>
       <form @submit.prevent="onAdd">
         <dl>
           <dt>
