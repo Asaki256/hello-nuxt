@@ -20,3 +20,16 @@ export interface ReturnJSONMembers {
   result: number;
   data: Member[];
 }
+
+export interface User {
+  id: number;
+  name: string;
+  loginId: string;
+  password: string;
+}
+// サーバAPIエンドポイントでは、認証失敗時にtokenを空文字、userをnullにする
+export interface ReturnJSONAuth {
+  result: number;
+  token: string;
+  user: User|null;
+}
