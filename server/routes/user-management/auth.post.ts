@@ -6,6 +6,8 @@ export default defineEventHandler(
     let tokenVal = "";
     let loginUser: User|null = null;
 
+    // throw createError("ra-");
+
     try{
       const body = await readBody(event);
       resultVal = 1;
