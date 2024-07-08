@@ -12,7 +12,7 @@ export default defineEventHandler(
       const body = await readBody(event);
       resultVal = 1;
       if(body.loginId == "bow" && body.password == "wow") {
-        tokenVal = "iamdogbutcattoo";
+        tokenVal = "test";
         loginUser = {
           id: 1234,
           name: "山本ゴローン",

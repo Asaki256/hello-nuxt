@@ -27,6 +27,7 @@ export interface User {
   loginId: string;
   password: string;
 }
+
 // サーバAPIエンドポイントでは、認証失敗時にtokenを空文字、userをnullにする
 export interface ReturnJSONAuth {
   result: number;
