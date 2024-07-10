@@ -5,6 +5,7 @@ const PAGE_TITLE = "会員リスト！";
 definePageMeta({
   layout: "member",
   // layout: false,
+  middleware: ["loggedin-check"],
 });
 useHead({
   title: PAGE_TITLE,

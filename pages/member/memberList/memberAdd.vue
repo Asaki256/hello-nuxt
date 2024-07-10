@@ -4,6 +4,7 @@ import type { Member } from "@/interfaces";
 const PAGE_TITLE = "会員情報を追加するお";
 definePageMeta({
   layout: "member",
+  middleware: ["loggedin-check"],
 });
 useHead({
   title: PAGE_TITLE,

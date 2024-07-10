@@ -2,5 +2,4 @@
   "prettier.tabWidth": 2,
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "cSpell.ignoreWords": ["loggedout"]
 }

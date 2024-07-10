@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import type { User, City } from "@/interfaces";
 
-const loginTokenCookie = useCookie<string | null>("loginToken");
-const loginUserCookie = useCookie<User | null>("loginUser");
-if (loginTokenCookie.value == null || loginUserCookie.value == null) {
-  await navigateTo("/login");
-}
+// const loginTokenCookie = useCookie<string | null>("loginToken");
+// const loginUserCookie = useCookie<User | null>("loginUser");
+// if (loginTokenCookie.value == null || loginUserCookie.value == null) {
+//   await navigateTo("/login");
+// }
+definePageMeta({
+  middleware: ["loggedin-check"],
+});
 
-// ステートから都市情報取得
+// // ステートから都市情報取得
 const cityList = useState<Map<number, City>>("cityList");
 </script>
 
